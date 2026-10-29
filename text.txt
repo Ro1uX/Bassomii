@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة موعد غرامي</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #3b1b42;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* الخلفية المغبشة بالصورة */
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('image.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(12px);
+            transform: scale(1.1);
+            z-index: -2;
+        }
+
+        /* طبقة عتمة لونية نهدية متناسقة */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(75, 31, 88, 0.85), rgba(45, 15, 55, 0.9));
+            z-index: -1;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1s ease-in-out;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #ffc2e2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.4;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #d81b60, #ad1457);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(216, 27, 96, 0.4);
+            transition: transform 0.2s, background 0.2s;
+            font-weight: bold;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .details {
+            display: none;
+            text-align: right;
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        .details h2 {
+            text-align: center;
+            color: #ffc2e2;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .details p {
+            font-size: 17px;
+            margin: 12px 0;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 10px 15px;
+            border-radius: 12px;
+            border-right: 4px solid #ff4081;
+        }
+
+        .love-msg {
+            text-align: center;
+            font-size: 20px;
+            color: #ff80ab;
+            margin: 20px 0 10px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 128, 171, 0.5);
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            justify-content: center;
+        }
+
+        .choice-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.2s;
+        }
+
+        .choice-btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-green {
+            background-color: #2e7d32;
+            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.4);
+        }
+
+        .btn-red {
+            background-color: #c62828;
+            box-shadow: 0 4px 10px rgba(198, 40, 40, 0.4);
+        }
+
+        /* قلوب الحب المتحركة */
+        .heart {
+            position: absolute;
+            color: #ff4081;
+            font-size: 24px;
+            animation: fall linear forwards;
+            z-index: 1;
+            user-select: none;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-image"></div>
+    <div class="overlay"></div>
+
+    <div class="card" id="mainCard">
+        <!-- واجهة البداية -->
+        <div id="welcomeScreen">
+            <h1>لويس يدعوكِ الى موعد غرامي جديد 💜</h1>
+            <button class="btn" onclick="openInvitation()">دخول</button>
+        </div>
+
+        <!-- تفاصيل الدعوة -->
+        <div id="detailsScreen" class="details">
+            <h2>تفاصيل الموعد</h2>
+            <p><strong>اليوم:</strong> الجمعة 30/10</p>
+            <p><strong>المكان:</strong> اللويبده</p>
+            <p><strong>الوقت:</strong> بعد صلاة الجمعة</p>
+            <p><strong>ملاحظة:</strong> بس تجهزي بتخبريني عشان أبعتلك سائق خاص 🚗</p>
+            <p><strong>الحماس ؟</strong> 99999999999 🔥</p>
+            
+            <div class="love-msg">بحبك يا توتو ❤️</div>
+
+            <div class="buttons-container">
+                <button class="choice-btn btn-green" onclick="alert('يسعد قلبك! وافقتِ وأنا بانتظارك 😍')">موافق</button>
+                <button class="choice-btn btn-red" onclick="alert('موافق غصباً عنك، ما في خيار تاني! 😂💜')">موافق</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openInvitation() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('detailsScreen').style.display = 'block';
+            startHearts();
+        }
+
+        function startHearts() {
+            const heartsInterval = setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = ['❤️', '💖', '💘', '💜', '💓', '✨'][Math.floor(Math.random() * 6)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }, 150);
+
+            // إيقاف إطلاق القلوب الكثيفة بعد 8 ثواني لتخفيف الحمل
+            setTimeout(() => {
+                clearInterval(heartsInterval);
+            }, 8000);
+        }
+    </script>
+</body>
+</html>
